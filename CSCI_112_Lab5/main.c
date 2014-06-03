@@ -23,7 +23,7 @@ void function_B(int*);
  * main program to drive homework problems
  */
 int main(int argc, char** argv) {
-    double mass_1 = 2e30; //mass of earth
+    double mass_1 = 5.9e24; //mass of earth
     double mass_2 = 70; //mass of human
     double distance = 6.37e6; //radius of earth 
 
