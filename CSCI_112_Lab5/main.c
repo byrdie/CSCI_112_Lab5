@@ -9,15 +9,15 @@
 #include <stdlib.h>
 
 #define G 6.67e-11
-#define TRUE 1;
-#define FALSE 0;
+#define TRUE 1
+#define FALSE 0
 
 double problem_1(double, double, double);
 double problem_1_exp(double, double, double);
 void problem_2_IO(int);
 void problem_2_shuffle_left(char*, char*, char*);
-void function_A(int);
-void function_B(int);
+void function_A(int, int*);
+void function_B(int*);
 
 /*
  * main program to drive homework problems
@@ -33,6 +33,11 @@ int main(int argc, char** argv) {
 
     puts("\nProblem 2");
     problem_2_IO(5);
+    
+    puts("Extra credit");
+    int stop_param = TRUE;
+    int * A_ptr;
+    function_A(stop_param, A_ptr);
 
     return (EXIT_SUCCESS);
 }
@@ -103,7 +108,26 @@ void problem_2_shuffle_left(char* c1, char* c2, char* c3) {
 
 /*extra credit function A*/
 void function_A(int stop_param, int* local_A){
-    if(local_A){
-        printf("Original value: &d\n", *local_A);
+    int A_value = 5;        //local variable for function A
+    
+    if(local_A){    //if the local value of A has been initialized
+            printf("Original value: %d\n", *local_A);   //print original stack value
+            *local_A = *local_A + 1;                    //increment stack value
+            printf("New value: %d\n", *local_A);         //print modified stack value
     }
+    
+    if(stop_param == FALSE){    //escape condition
+        printf("Value was changed to: %d\n", *local_A);
+    }
+    else {      //stop param == TRUE //main condition
+        
+        function_B(&A_value);
+    }
+}
+
+/*extra credit function B*/
+void function_B(int* local_A){
+    int stop_param = FALSE;     //toggle stop condition
+    
+    function_A(stop_param, local_A);    //call A recursively
 }
